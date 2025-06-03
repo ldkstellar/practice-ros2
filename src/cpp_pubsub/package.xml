@@ -14,7 +14,8 @@
 
   <export>
     <build_type>ament_cmake</build_type>
+    <depend>tutorial_interfaces</depend>
     <depend>rclcpp</depend>
-    <depend>std_msgs</depend><?노드의 상태와 의존성은 일치해야 한다?>
+    <depend>std_msgs</depend>    <?노드의 상태와 의존성은 일치해야 한다?>
   </export>
 </package>
