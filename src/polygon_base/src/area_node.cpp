@@ -7,8 +7,7 @@ int main(int argc, char** argv)
   (void) argc;
   (void) argv;
 
-  pluginlib::ClassLoader<polygon_base::RegularPolygon> poly_loader("polygon_base", "polygon_base::RegularPolygon");
-
+  pluginlib::ClassLoader<polygon_base::RegularPolygon> poly_loader("polygon_base", "polygon_base::RegularPolygon");// 패키지name ,baseclass
   try
   {
     std::shared_ptr<polygon_base::RegularPolygon> triangle = poly_loader.createSharedInstance("polygon_plugins::Triangle");
