@@ -12,19 +12,17 @@ public:
   MinimalParam()
   : Node("minimal_param_node")
   {
-    this->declare_parameter("my_parameter", "world");
+    this->declare_parameter("my_parameter", "world");// 파라미터 생성
 
     timer_ = this->create_wall_timer(
       1000ms, std::bind(&MinimalParam::timer_callback, this));
-  }
+  }// 타이머 생성 
 
   void timer_callback()
   {
     std::string my_param = this->get_parameter("my_parameter").as_string();
-
     RCLCPP_INFO(this->get_logger(), "Hello %s!", my_param.c_str());
-
-    std::vector<rclcpp::Parameter> all_new_parameters{rclcpp::Parameter("my_parameter", "world")};
+    std::vector<rclcpp::Parameter> all_new_parameters{rclcpp::Parameter("my_parameter", "fuckingworld")};
     this->set_parameters(all_new_parameters);
   }
 
