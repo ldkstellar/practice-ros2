@@ -12,6 +12,7 @@ find_package(ament_cmake REQUIRED)
 # find_package(<dependency> REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
+# 인터페이스를 프로젝트 네임으로 만드는 것이다.
 rosidl_generate_interfaces(${PROJECT_NAME}
   "action/Fibonacci.action"
 )
