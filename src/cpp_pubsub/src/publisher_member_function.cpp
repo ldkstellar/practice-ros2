@@ -25,9 +25,9 @@ private:
     RCLCPP_INFO_STREAM(this->get_logger(), "Publishing: '" << message.num << "'");    // CHANGE
     publisher_->publish(message);
   }
-  rclcpp::TimerBase::SharedPtr timer_;
+  rclcpp::TimerBase::SharedPtr timer_;// 타이머 베이스 공유 포인터
   rclcpp::Publisher<tutorial_interfaces::msg::Num>::SharedPtr publisher_;             // CHANGE
-  size_t count_;
+  size_t count_;// 멤버 변수
 };
 
 int main(int argc, char * argv[])
