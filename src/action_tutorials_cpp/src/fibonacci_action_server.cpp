@@ -2,7 +2,6 @@
 #include <memory>
 #include <thread>
 
-
 #include "rclcpp_action/rclcpp_action.hpp"
 #include "include/action_tutorials_interfaces/action_tutorials_interfaces/action/fibonacci.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -27,7 +26,7 @@ namespace action_tutorials_cpp{
         private:
             rclcpp_action::Server<Fibonacci>::SharedPtr action_server_;
             rclcpp_action::GoalResponse handle_goal(const rclcpp_action::GoalUUID &uuid, std::shared_ptr<const Fibonacci::Goal>goal){
-                 // 처음 요청 받을때인듯
+                 // 클라이언트 측 요청 받을 때
                 RCLCPP_INFO(this->get_logger(),"Received goal request with order %d",goal->order);
                 (void)uuid;
                 return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
@@ -41,7 +40,7 @@ namespace action_tutorials_cpp{
             
             void handle_accepted(const std::shared_ptr<GoalHandleFibonacci>goal_handle){
                 using namespace std::placeholders;
-                std::thread{std::bind(&execute,this,_1),goal_handle}.detach();
+                std::thread{std::bind(&execute,this,_1),goal_handle}.detach();// 스레드 처리 백그라운드에서 실행
 
             }
 
