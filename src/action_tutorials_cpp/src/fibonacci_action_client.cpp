@@ -15,7 +15,7 @@ namespace action_tutorials_cpp
 class FibonacciActionClient : public rclcpp::Node
 {
 public:
-  using Fibonacci = action_tutorials_interfaces::action::Fibonacci;
+  using Fibonacci = action_tutorials_interfaces::action::Fibonacci; //fibonacci .hpp
   using GoalHandleFibonacci = rclcpp_action::ClientGoalHandle<Fibonacci>;
 
   explicit FibonacciActionClient(const rclcpp::NodeOptions & options)
@@ -23,11 +23,11 @@ public:
   {
     this->client_ptr_ = rclcpp_action::create_client<Fibonacci>(
       this,
-      "fibonacci");
+      "fibonacci");// 2번재 파라미터 action name
 
     this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(500),
-      std::bind(&FibonacciActionClient::send_goal, this));
+      std::bind(&FibonacciActionClient::send_goal, this));// 타이머 메소드 
   }
 
   void send_goal()
@@ -37,22 +37,22 @@ public:
     this->timer_->cancel();
 
     if (!this->client_ptr_->wait_for_action_server()) {
-      RCLCPP_ERROR(this->get_logger(), "Action server not available after waiting");
+      RCLCPP_ERROR(this->get_logger(), "Action server not available after waiting");// 연결 안됨
       rclcpp::shutdown();
     }
 
-    auto goal_msg = Fibonacci::Goal();
+    auto goal_msg = Fibonacci::Goal();// goal 개체 생성
     goal_msg.order = 10;
 
     RCLCPP_INFO(this->get_logger(), "Sending goal");
 
     auto send_goal_options = rclcpp_action::Client<Fibonacci>::SendGoalOptions();
     send_goal_options.goal_response_callback =
-      std::bind(&FibonacciActionClient::goal_response_callback, this, _1);
+      std::bind(&FibonacciActionClient::goal_response_callback, this, _1); //goal 
     send_goal_options.feedback_callback =
-      std::bind(&FibonacciActionClient::feedback_callback, this, _1, _2);
+      std::bind(&FibonacciActionClient::feedback_callback, this, _1, _2);// feedback call
     send_goal_options.result_callback =
-      std::bind(&FibonacciActionClient::result_callback, this, _1);
+      std::bind(&FibonacciActionClient::result_callback, this, _1);// result callback
     this->client_ptr_->async_send_goal(goal_msg, send_goal_options);
   }
 
@@ -74,7 +74,7 @@ private:
     const std::shared_ptr<const Fibonacci::Feedback> feedback)
   {
     std::stringstream ss;
-    ss << "Next number in sequence received: ";
+    ss << "[Feed back]: Next number in sequence received: ";
     for (auto number : feedback->partial_sequence) {
       ss << number << " ";
     }
@@ -97,7 +97,7 @@ private:
         return;
     }
     std::stringstream ss;
-    ss << "Result received: ";
+    ss << "[result] Result received: ";
     for (auto number : result.result->sequence) {
       ss << number << " ";
     }

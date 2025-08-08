@@ -24,7 +24,7 @@ public:
 
     this->action_server_ = rclcpp_action::create_server<Fibonacci>(
       this,
-      "fibonacci",
+      "fibonacci",// actionname
       std::bind(&FibonacciActionServer::handle_goal, this, _1, _2),
       std::bind(&FibonacciActionServer::handle_cancel, this, _1),
       std::bind(&FibonacciActionServer::handle_accepted, this, _1));
@@ -37,7 +37,7 @@ private:
     const rclcpp_action::GoalUUID & uuid,
     std::shared_ptr<const Fibonacci::Goal> goal)
   {
-    RCLCPP_INFO(this->get_logger(), "Received goal request with order %d", goal->order);
+    RCLCPP_INFO(this->get_logger(), "[handle goal]: Received goal request with order %d", goal->order);
     (void)uuid;
     return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
   }
@@ -59,7 +59,7 @@ private:
 
   void execute(const std::shared_ptr<GoalHandleFibonacci> goal_handle)
   {
-    RCLCPP_INFO(this->get_logger(), "Executing goal");
+    RCLCPP_INFO(this->get_logger(), "[Excute]: Executing goal");
     rclcpp::Rate loop_rate(1);
     const auto goal = goal_handle->get_goal();
     auto feedback = std::make_shared<Fibonacci::Feedback>();
