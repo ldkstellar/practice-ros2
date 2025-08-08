@@ -15,12 +15,12 @@ find_package(custom_interface REQUIRED)
 
 #talker
 add_executable(talker src/pub.cpp)
-ament_target_dependencies(talker rclcpp std_msgs)
+ament_target_dependencies(talker rclcpp std_msgs custom_interface)
 
 
 # listener
 add_executable(listener src/sub.cpp)
-ament_target_dependencies(listener rclcpp std_msgs)
+ament_target_dependencies(listener rclcpp std_msgs custom_interface)
 
 install(TARGETS
   talker
