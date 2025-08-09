@@ -21,7 +21,7 @@ class MinimalPublisher :public rclcpp::Node{
         void timer_callback(){
             auto message = custom_interface::msg::Num();
             message.num = this->count++;
-            RCLCPP_INFO(this->get_logger(), "Publishing: '%d'", message.num);
+            RCLCPP_INFO(this->get_logger(), "Publishing: '%ld'", message.num);
             publisher_->publish(message);
         }
         rclcpp::TimerBase::SharedPtr timer_;
