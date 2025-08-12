@@ -8,17 +8,20 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_lifecycle REQUIRED)
 
 add_executable(node_info src/simplenode.cpp)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
-
 ament_target_dependencies(node_info rclcpp)
 
+add_executable(various_node src/variousnode.cpp)
+ament_target_dependencies(various_node rclcpp rclcpp_lifecycle)
+
 install(TARGETS
+  various_node
   node_info
-  
   DESTINATION lib/${PROJECT_NAME})
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
